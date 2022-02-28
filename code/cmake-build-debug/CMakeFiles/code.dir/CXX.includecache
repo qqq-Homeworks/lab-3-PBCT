@@ -1,0 +1,34 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/qqq/Documents/University/1 course/2 term/PBCT/3 lab/code/Fraction.cpp
+Fraction.hpp
+/Users/qqq/Documents/University/1 course/2 term/PBCT/3 lab/code/Fraction.hpp
+
+/Users/qqq/Documents/University/1 course/2 term/PBCT/3 lab/code/Fraction.hpp
+includes.hpp
+/Users/qqq/Documents/University/1 course/2 term/PBCT/3 lab/code/includes.hpp
+
+/Users/qqq/Documents/University/1 course/2 term/PBCT/3 lab/code/includes.hpp
+iostream
+-
+iomanip
+-
+cmath
+-
+algorithm
+-
+sstream
+-
+
+/Users/qqq/Documents/University/1 course/2 term/PBCT/3 lab/code/main.cpp
+includes.hpp
+/Users/qqq/Documents/University/1 course/2 term/PBCT/3 lab/code/includes.hpp
+Fraction.hpp
+/Users/qqq/Documents/University/1 course/2 term/PBCT/3 lab/code/Fraction.hpp
+
