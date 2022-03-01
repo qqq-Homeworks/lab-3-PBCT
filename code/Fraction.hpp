@@ -28,6 +28,7 @@ public:
     Fraction(int, int, int);
 
     Fraction(int, int);
+    Fraction(int);
 
     Fraction(double);
 
@@ -83,14 +84,14 @@ public:
 
     friend std::ostream &operator<<(std::ostream &, Fraction &);
 
-    friend Fraction &operator+(Fraction &, Fraction &);
+    friend Fraction operator+(const Fraction &, const Fraction &);
 
-    friend Fraction &operator+(Fraction &, int &); //как тут лучше то, чтобы не плодить перегрузки
-    friend Fraction &operator+(int &, Fraction &);
+    friend Fraction operator+(const Fraction &, const int &); //как тут лучше то, чтобы не плодить перегрузки
+    friend Fraction operator+(const int &, const Fraction &);
 
-    friend Fraction &operator+(Fraction &, double &);
+    friend Fraction operator+(const Fraction &, const double &);
 
-    friend Fraction &operator+(double &, Fraction &);
+    friend Fraction operator+(const double &,const Fraction &);
 };
 
 

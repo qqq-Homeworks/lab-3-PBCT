@@ -31,7 +31,16 @@ Fraction::Fraction(int num, int den) {
     Denominator = den;
     this->Normalize();
 }
-
+Fraction::Fraction(int q){
+    if (q<0)
+    {
+        Sign = true;
+    }
+    else Sign = false;
+    Integer = q;
+    Numerator = 0;
+    Denominator = 1;
+}
 Fraction::Fraction(const double fr) {
     double q = fr;
     if (fr < 0) {
@@ -63,62 +72,89 @@ void Fraction::Normalize() {
 }
 
 std::istream &operator>>(std::istream &istr, Fraction &fraction) {
-    int tempFrist, tempSecond, tempThird;
-    istr >> tempFrist;
+    int tempFirst, tempSecond, tempThird;
+    istr >> tempFirst;
     if (istr.peek() == '/') {
         istr.get();
         istr >> tempSecond;
-        fraction = Fraction(tempFrist, tempSecond);
+        fraction = Fraction(tempFirst, tempSecond);
+    } else if (istr.peek() == '\n') {
+        fraction = Fraction(tempFirst);
     } else {
         istr >> tempSecond;
         istr.get();
         istr >> tempThird;
-        fraction = Fraction(tempFrist, tempSecond, tempThird);
+        fraction = Fraction(tempFirst, tempSecond, tempThird);
         fraction.Normalize();
     }
     return istr;
 }
 
 std::ostream &operator<<(std::ostream &ostr, Fraction &fraction) {
-    ostr << '\n';
-    ostr << "     " << fraction.Numerator << "\n ";
-    if (fraction.Sign) ostr << '-';
-    if (fraction.Integer != 0) ostr << fraction.Integer;
-    ostr << "  ---\n";
-    ostr << "     " << fraction.Denominator << '\n';
-    return ostr;
+    if (fraction.Numerator != 0) {
+        ostr << '\n';
+        ostr << "     " << fraction.Numerator << "\n ";
+        if (fraction.Sign) ostr << '-';
+        if (fraction.Integer != 0) ostr << fraction.Integer;
+        ostr << "  ---\n";
+        ostr << "     " << fraction.Denominator << '\n';
+        return ostr;
+    } else {
+        if (fraction.Sign) ostr << '-';
+        ostr << fraction.Integer;
+        return ostr;
+    }
+
 }
 
-Fraction &operator+(Fraction &fraction1, Fraction &fraction2) {
-    double q1 = fraction1.ToDouble();
-    double q2 = fraction2.ToDouble();
+Fraction operator+(const Fraction &fraction1, const Fraction &fraction2) {
+    Fraction fr1 = fraction1;
+    Fraction fr2 = fraction2;
+    double q1 = fr1.ToDouble();
+    double q2 = fr2.ToDouble();
     q1 = q1 + q2;
     Fraction result = q1;
     return result;
 }
 
-Fraction &operator+(Fraction &fraction1, double &dbl) {
-    double q1 = fraction1.ToDouble();
+Fraction operator+(const Fraction &fraction1, const double &dbl) {
+    Fraction fr = fraction1;
+    double q1 = fr.ToDouble();
     q1 = q1 + dbl;
     Fraction result = q1;
     return result;
 }
 
-Fraction &operator+(double &dbl, Fraction &fraction1) {
-    double q1 = fraction1.ToDouble();
+Fraction operator+(const double &dbl, const Fraction &fraction1) {
+    Fraction fr = fraction1;
+    double q1 = fr.ToDouble();
     q1 = q1 + dbl;
     Fraction result = q1;
     return result;
 }
 
-Fraction &operator+(Fraction &fraction1, int &intgr) {
-    fraction1.Integer += intgr;
-    return fraction1;
+Fraction operator+(const Fraction &fraction1, const int &intgr) {
+    Fraction fr = fraction1;
+    if (fr.Sign) fr.Integer = fr.Integer * (-1) + intgr;
+    else
+        fr.Integer += intgr;
+    if (fr.Integer < 0) {
+        fr.Sign = true;
+    } else fr.Sign = false;
+    fr.Normalize();
+    return fr;
 }
 
-Fraction &operator+(int &intgr, Fraction &fraction1) {
-    fraction1.Integer += intgr;
-    return fraction1;
+Fraction operator+(const int &intgr, const Fraction &fraction1) {
+    Fraction fr = fraction1;
+    if (fr.Sign) fr.Integer = fr.Integer * (-1) + intgr;
+    else
+        fr.Integer += intgr;
+    if (fr.Integer < 0) {
+        fr.Sign = true;
+    } else fr.Sign = false;
+    fr.Normalize();
+    return fr;
 }
 
 Fraction &operator+=(Fraction &left, const Fraction &right) {
